@@ -11,6 +11,11 @@
         disko.nixosModules.disko
         {
           disko.devices = import ./disk-config.nix {};
+          boot.loader.grub = {
+            devices = [ "/dev/sda" ];
+            efiSupport = true;
+            efiInstallAsRemovable = true;
+          };
         }
       ];
     };

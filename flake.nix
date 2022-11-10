@@ -9,7 +9,9 @@
       modules = [
         ./configuration.nix
         disko.nixosModules.disko
-        (disko.devices = import ./disk-config.nix) {};
+        {
+          disko.devices = import ./disk-config.nix {};
+        }
       ];
     };
     diskoConfigurations.fnord = import ./disk-config.nix;

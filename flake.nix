@@ -1,6 +1,6 @@
 {
   inputs.nixpkgs.url = github:NixOS/nixpkgs;
-  inputs.disko.url = github:nix-community/disko;
+  inputs.disko.url = github:nix-community/disko?ref=zap;
 
   outputs = { self, nixpkgs, disko, ... }@attrs: {
     nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {
@@ -19,6 +19,5 @@
         }
       ];
     };
-    diskoConfigurations.fnord = import ./disk-config.nix;
   };
 }

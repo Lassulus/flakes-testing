@@ -9,15 +9,34 @@
       modules = [
         ./configs/universal_dhcp.nix
         disko.nixosModules.disko
+        ./disk-config.nix
         {
-          disko.devices = import ./disk-config.nix {
-            lib = nixpkgs.lib;
-          };
+          _module.args.disks = [ "/dev/sda" ];
           boot.loader.grub = {
             devices = [ "/dev/sda" ];
             efiSupport = true;
             efiInstallAsRemovable = true;
           };
+        }
+      ];
+    };
+    diskoConfigurations.fnord = import ./disk-config.nix;
+    nixosConfigurations.hetzner-cloud-aarch64 = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      specialArgs = attrs;
+      modules = [
+        ./configs/universal_dhcp.nix
+        disko.nixosModules.disko
+        ./disk-config.nix
+        {
+          _module.args.disks = [ "/dev/sda" ];
+          boot.loader.efi.canTouchEfiVariables = true;
+          boot.loader.systemd-boot.enable = true;
+          # boot.loader.grub = {
+          #   devices = [ "/dev/sda" ];
+          #   efiSupport = true;
+          #   # efiInstallAsRemovable = true;
+          # };
         }
       ];
     };
@@ -27,10 +46,9 @@
       modules = [
         ./configs/universal_dhcp.nix
         disko.nixosModules.disko
+        ./disk-config.nix
         {
-          disko.devices = import ./disk-config.nix {
-            lib = nixpkgs.lib;
-          };
+          _module.args.disks = [ "/dev/sda" ];
           boot.loader.grub = {
             devices = [ "/dev/sda" ];
             efiSupport = true;
@@ -45,14 +63,12 @@
       modules = [
         ./configs/reliablesite.nix
         disko.nixosModules.disko
+        ./disk-config.nix
         {
-          disko.devices = import ./disk-config.nix {
-            lib = nixpkgs.lib;
-            disks = [
-              "/dev/nvme0n1"
-              "/dev/nvme1n1"
-            ];
-          };
+          _module.args.disks = [
+            "/dev/nvme0n1"
+            "/dev/nvme1n1"
+          ];
           boot.loader.grub = {
             devices = [
               "/dev/nvme0n1"

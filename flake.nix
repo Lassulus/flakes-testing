@@ -1,6 +1,11 @@
 {
   inputs.nixpkgs.url = github:NixOS/nixpkgs;
+
   inputs.disko.url = github:nix-community/disko;
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+
+  inputs.nixos-anywhere.url = "github:numtide/nixos-anywhere";
+  inputs.nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nixpkgs, disko, ... }@attrs: {
     nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {

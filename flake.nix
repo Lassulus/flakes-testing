@@ -7,7 +7,7 @@
   inputs.nixos-anywhere.url = "github:numtide/nixos-anywhere";
   inputs.nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, disko, ... }@attrs: {
+  outputs = { self, nixpkgs, disko, nixos-anywhere, ... }@attrs: {
     nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = attrs;
@@ -22,6 +22,10 @@
             efiSupport = true;
             efiInstallAsRemovable = true;
           };
+
+          environment.systemPackages = [
+            nixos-anywhere.packages.x86_64-linux.nixos-anywhere
+          ];
         }
       ];
     };

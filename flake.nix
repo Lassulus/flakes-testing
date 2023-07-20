@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = github:NixOS/nixpkgs;
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
 
   inputs.disko.url = github:nix-community/disko/module-tests;
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";

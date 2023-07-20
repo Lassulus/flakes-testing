@@ -1,7 +1,7 @@
 {
   inputs.nixpkgs.url = github:NixOS/nixpkgs;
 
-  inputs.disko.url = github:nix-community/disko;
+  inputs.disko.url = github:nix-community/disko/module-tests;
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nixos-anywhere.url = "github:numtide/nixos-anywhere";

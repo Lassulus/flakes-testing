@@ -1,13 +1,16 @@
 {
   inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
 
-  inputs.disko.url = github:nix-community/disko/module-tests;
+  inputs.disko.url = github:nix-community/disko/make-disk-image;
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nixos-anywhere.url = "github:numtide/nixos-anywhere";
   inputs.nixos-anywhere.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nixpkgs, disko, nixos-anywhere, ... }@attrs: {
+    packages."x86_64-linux".makeDiskImageTest = disko.lib.lib.makeDiskImage {
+      nixosConfig = self.nixosConfigurations.reliablesite;
+    };
     nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = attrs;
@@ -18,7 +21,6 @@
         {
           _module.args.disks = [ "/dev/sda" ];
           boot.loader.grub = {
-            devices = [ "/dev/sda" ];
             efiSupport = true;
             efiInstallAsRemovable = true;
           };
@@ -59,7 +61,6 @@
         {
           _module.args.disks = [ "/dev/sda" ];
           boot.loader.grub = {
-            devices = [ "/dev/sda" ];
             efiSupport = true;
             efiInstallAsRemovable = true;
           };
@@ -79,10 +80,7 @@
             "/dev/nvme1n1"
           ];
           boot.loader.grub = {
-            devices = [
-              "/dev/nvme0n1"
-              "/dev/nvme1n1"
-            ];
+            enable = true;
             efiSupport = true;
             efiInstallAsRemovable = true;
           };

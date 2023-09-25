@@ -11,6 +11,9 @@
     packages."x86_64-linux".makeDiskImageTest = disko.lib.lib.makeDiskImage {
       nixosConfig = self.nixosConfigurations.reliablesite;
     };
+    packages."x86_64-linux".makeDiskScriptTest = disko.lib.lib.makeDiskImageScript {
+      nixosConfig = self.nixosConfigurations.reliablesite;
+    };
     nixosConfigurations.fnord = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = attrs;

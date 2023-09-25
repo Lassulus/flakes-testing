@@ -1,7 +1,7 @@
 {
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  inputs.disko.url = github:nix-community/disko/make-disk-image;
+  inputs.disko.url = "github:nix-community/disko/make-disk-image";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nixos-anywhere.url = "github:numtide/nixos-anywhere";
